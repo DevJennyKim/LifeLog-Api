@@ -1,6 +1,7 @@
 import express from 'express';
-import { login, logout, register } from '../controllers/authController.js';
+import { getCategory } from '../controllers/categoryController.js';
 
 const router = express.Router();
 
+router.get('/', getCategory);
 export default router;
