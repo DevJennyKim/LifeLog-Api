@@ -2,27 +2,62 @@
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
+import 'dotenv/config';
+const imgPath = process.env.IMG_PATH;
 export async function seed(knex) {
   // Deletes ALL existing entries
   await knex('post').del();
   await knex('post').insert([
     {
       id: 1,
-      title: 'My first post',
-      desc: 'This is my first post about cats!',
-      img: 'cat1.png',
+      title: 'Dinner with Friends at a Cozy Italian Restaurant',
+      desc: 'Last night, I had an amazing dinner with my closest friends at a cozy Italian restaurant downtown. The pasta was perfectly cooked, the wine was exquisite, and the conversations were even better. We laughed, shared stories, and had an unforgettable evening.',
+      img: `${imgPath}party.png`,
       user_id: 1,
-      category_id: 1,
+      category_id: 2,
       likes: 5,
       created_at: knex.fn.now(),
       updated_at: knex.fn.now(),
     },
     {
       id: 2,
-      title: 'Life is beautiful',
-      desc: 'Sharing some thoughts about life.',
-      img: 'life1.png',
-      user_id: 2,
+      title: 'Picnic Birthday Party for My Little baby',
+      desc: 'We threw a lovely picnic birthday party for my little sister in the park! The weather was perfect, and the day was filled with laughter, games, and delicious homemade food. She loved the surprise cake and the thoughtful presents from everyone.',
+      img: `${imgPath}picnic.png`,
+      user_id: 1,
+      category_id: 2,
+      likes: 10,
+      created_at: knex.fn.now(),
+      updated_at: knex.fn.now(),
+    },
+    {
+      id: 3,
+      title: 'Movie Night with Friends at Home',
+      desc: 'A relaxing movie night with friends was just what we needed! We set up a cozy corner with blankets and pillows, made some popcorn, and enjoyed a mini-marathon of our favorite films. It was a perfect blend of comfort and fun.',
+      img: `${imgPath}movieNight.png`,
+      user_id: 1,
+      category_id: 2,
+      likes: 10,
+      created_at: knex.fn.now(),
+      updated_at: knex.fn.now(),
+    },
+    {
+      id: 4,
+      title: 'Look at How Cute My Cat Is',
+      desc: "I can't stop sharing pictures of my adorable cat! She's the queen of the house and knows it. Whether she's playing with her toys, napping in the sun, or giving me her cute little head tilts, she's always the center of attention.",
+      img: `${imgPath}cuteCat.png`,
+      user_id: 1,
+      category_id: 2,
+      likes: 100,
+      created_at: knex.fn.now(),
+      updated_at: knex.fn.now(),
+    },
+    {
+      id: 5,
+      title: 'My Cat Will Be a Genius Coder!',
+      desc: "Lately, my cat has been obsessed with my laptop screen. Every time I start coding, she sits beside me and seems to follow every line of code I write. Who knows? Maybe one day she'll write her own program—a meow-translator app, perhaps?",
+      img: `${imgPath}meowCoder.png`,
+      user_id: 1,
       category_id: 2,
       likes: 10,
       created_at: knex.fn.now(),
