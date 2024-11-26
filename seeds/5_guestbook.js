@@ -13,7 +13,7 @@ export async function seed(knex) {
     },
     {
       id: 2,
-      user_id: 2,
+      user_id: 1,
       comment: 'So glad to be here!',
     },
   ]);
