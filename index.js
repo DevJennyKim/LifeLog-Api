@@ -6,7 +6,7 @@ import authRoutes from './routes/authRoutes.js';
 import categoryRoutes from './routes/categoryRoutes.js';
 import cookieParser from 'cookie-parser';
 import postRoutes from './routes/postRoutes.js';
-// import commentRoutes from './routes/commentRoutes.js';
+
 // import guestbookRoutes from './routes/guestbookRoutes.js';
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
-// app.use('/api/posts/:postId/comments', commentRoutes);
+
 // app.use('/api/guestbook', guestbookRoutes);
 app.use('/api/category', categoryRoutes);
 app.listen(PORT, () => {

@@ -19,7 +19,6 @@ export function up(knex) {
       .onUpdate('CASCADE')
       .onDelete('CASCADE');
     table.string('likes').notNullable();
-    table.integer('quantity').notNullable();
     table.timestamp('created_at').defaultTo(knex.fn.now());
   });
 }
