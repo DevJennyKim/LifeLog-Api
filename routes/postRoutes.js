@@ -9,6 +9,8 @@ import {
   deletePost,
   addComment,
   updatePost,
+  deleteComment,
+  updateComment,
 } from '../controllers/postController.js';
 
 const router = express.Router();
@@ -32,6 +34,8 @@ router.put('/:postId', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+router.delete('/:postId/comments/:commentId', deleteComment);
+router.put('/:postId/comments/:commentId', updateComment);
 router.post('/', addPosts);
 router.post('/upload', uploadImage);
 router.get('/', getPosts);

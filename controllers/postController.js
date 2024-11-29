@@ -142,6 +142,7 @@ const addComment = async (req, res) => {
       user_id: userId,
       post_id: postId,
       comment: comment,
+      likes: 0,
       created_at: knex.fn.now(),
     });
 
@@ -152,6 +153,59 @@ const addComment = async (req, res) => {
   } catch (error) {
     console.error('Error adding comment:', error);
     res.status(500).json({ message: 'Error adding comment' });
+  }
+};
+const deleteComment = async (req, res) => {
+  const { postId, commentId } = req.params;
+  console.log(postId, commentId);
+  try {
+    const deletedCount = await knex('comment')
+      .where({ id: commentId, post_id: postId })
+      .del();
+
+    if (deletedCount === 0) {
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+
+    res.status(200).json({ message: 'Comment deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting comment:', error);
+    res.status(500).json({ message: 'Error deleting comment' });
+  }
+};
+
+const updateComment = async (req, res) => {
+  const { postId, commentId } = req.params;
+  const { comment } = req.body;
+
+  if (!comment) {
+    return res.status(400).json({ message: 'Comment content is required' });
+  }
+
+  try {
+    const existingComment = await knex('comment')
+      .where({ id: commentId, post_id: postId })
+      .first();
+
+    if (!existingComment) {
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+
+    const updatedComment = await knex('comment')
+      .where({ id: commentId, post_id: postId })
+      .update({
+        comment: comment,
+        updated_at: knex.fn.now(),
+      })
+      .returning('*');
+
+    res.status(200).json({
+      message: 'Comment updated successfully',
+      updatedComment: updatedComment[0],
+    });
+  } catch (error) {
+    console.error('Error updating comment:', error);
+    res.status(500).json({ message: 'Server error while updating comment' });
   }
 };
 
@@ -250,14 +304,11 @@ const updatePost = async (postId, updateData) => {
     if (!post) {
       throw new Error('Post not found');
     }
-    console.log('post:', post);
 
-    console.log('update data:', updateData);
+    let newImageUrl = imageUrl;
 
     if (imageUrl) {
-      const fileName = imageUrl
-        ? imageUrl.split('/').pop()
-        : `${Date.now()}-image`;
+      const fileName = `${Date.now()}-${imageUrl.split('/').pop() || 'image'}`;
       const uploadParams = {
         Bucket: process.env.AWS_BUCKET_NAME,
         Key: fileName,
@@ -267,15 +318,19 @@ const updatePost = async (postId, updateData) => {
       };
 
       try {
-        const comment = new PutObjectCommand(uploadParams);
-        const response = await s3.send(comment);
-        console.log(response);
+        const uploadResponse = await s3.send(
+          new PutObjectCommand(uploadParams)
+        );
+        newImageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+
+        if (post.img) {
+          await deleteImageFromS3(post.img);
+        }
       } catch (error) {
         console.error('Error uploading new image:', error);
         throw new Error('Image upload failed');
       }
     }
-
     await knex('post')
       .where({ id: postId })
       .update({
@@ -286,7 +341,6 @@ const updatePost = async (postId, updateData) => {
         user_id: userId || post.user_id,
         updated_at: knex.fn.now(),
       });
-
     return { message: 'Post updated successfully' };
   } catch (error) {
     console.error('Error updating post:', error);
@@ -304,4 +358,6 @@ export {
   deletePost,
   updatePost,
   addComment,
+  deleteComment,
+  updateComment,
 };
