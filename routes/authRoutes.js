@@ -13,6 +13,6 @@ router.post('/register', register);
 router.post('/login', login);
 router.post('/logout', logout);
 router.post('/validate-password', validatePassword);
-router.put('/update-user', updateUserInfo);
+router.put('/update-user/:userId', updateUserInfo);
 
 export default router;
