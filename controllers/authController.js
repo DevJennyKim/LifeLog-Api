@@ -131,4 +131,13 @@ const validatePassword = async (req, res) => {
   }
 };
 
-export { login, authenticateToken, register, logout, validatePassword };
+const updateUserInfo = async (req, res) => {};
+
+export {
+  login,
+  authenticateToken,
+  register,
+  logout,
+  validatePassword,
+  updateUserInfo,
+};

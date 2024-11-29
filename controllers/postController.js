@@ -305,39 +305,40 @@ const updatePost = async (postId, updateData) => {
       throw new Error('Post not found');
     }
 
-    let newImageUrl = imageUrl;
+    let newImageUrl = imageUrl || post.img;
 
-    if (imageUrl) {
-      const fileName = `${Date.now()}-${imageUrl.split('/').pop() || 'image'}`;
-      const uploadParams = {
-        Bucket: process.env.AWS_BUCKET_NAME,
-        Key: fileName,
-        Body: Buffer.from(imageUrl, 'base64'),
-        ContentEncoding: 'base64',
-        ContentType: 'image/jpeg',
-      };
+    // if (imageUrl && imageUrl !== post.img) {
+    //   const fileName = `${Date.now()}-${imageUrl.split('/').pop() || 'image'}`;
+    //   const uploadParams = {
+    //     Bucket: process.env.AWS_BUCKET_NAME,
+    //     Key: fileName,
+    //     Body: Buffer.from(imageUrl, 'base64'),
+    //     ContentEncoding: 'base64',
+    //     ContentType: 'image/jpeg',
+    //   };
 
-      try {
-        const uploadResponse = await s3.send(
-          new PutObjectCommand(uploadParams)
-        );
-        newImageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+    //   try {
+    //     const uploadResponse = await s3.send(
+    //       new PutObjectCommand(uploadParams)
+    //     );
+    //     newImageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
 
-        if (post.img) {
-          await deleteImageFromS3(post.img);
-        }
-      } catch (error) {
-        console.error('Error uploading new image:', error);
-        throw new Error('Image upload failed');
-      }
-    }
+    //     if (post.img) {
+    //       await deleteImageFromS3(post.img);
+    //     }
+    //   } catch (error) {
+    //     console.error('Error uploading new image:', error);
+    //     throw new Error('Image upload failed');
+    //   }
+    // }
+
     await knex('post')
       .where({ id: postId })
       .update({
         title: title || post.title,
         desc: content || post.desc,
         category_id: categoryId || post.category_id,
-        img: imageUrl,
+        img: newImageUrl,
         user_id: userId || post.user_id,
         updated_at: knex.fn.now(),
       });
