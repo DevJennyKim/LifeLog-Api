@@ -131,7 +131,44 @@ const validatePassword = async (req, res) => {
   }
 };
 
-const updateUserInfo = async (req, res) => {};
+const updateUserInfo = async (req, res) => {
+  const { userId, username, password } = req.body;
+  if (!userId) {
+    return res.status(400).json({ message: 'UserId is required' });
+  }
+  try {
+    const user = await knex('user').where({ id: userId }).first();
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    if (username && username !== user.name) {
+      const existingUser = await knex('user').where('name', username).first();
+
+      if (existingUser) {
+        return res.status(409).json({ message: 'Username already exists' });
+      }
+    }
+    let updatedPassword = user.password;
+    if (password) {
+      const salt = bcrypt.genSaltSync(10);
+      updatedPassword = bcrypt.hashSync(password, salt);
+    }
+    const updateUser = {
+      name: username || user.name,
+      password: updatedPassword,
+      updated_at: knex.fn.now(),
+    };
+
+    await knex('user').where({ id: userId }).update(updateUser);
+
+    return res
+      .status(200)
+      .json({ message: 'User information updated successfully' });
+  } catch (error) {
+    console.error('Error updating user information:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 export {
   login,
