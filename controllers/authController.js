@@ -96,7 +96,7 @@ const login = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
-const logout = (req, res) => {
+const logout = (_req, res) => {
   res
     .clearCookie('access_token', {
       httpOnly: true,
@@ -106,5 +106,29 @@ const logout = (req, res) => {
     .status(200)
     .json('User has been logged out.');
 };
+const validatePassword = async (req, res) => {
+  const { userId, password } = req.body;
 
-export { login, authenticateToken, register, logout };
+  try {
+    const user = await knex('user').where({ id: userId }).first();
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const isMatch = bcrypt.compareSync(password, user.password);
+
+    if (isMatch) {
+      return res.status(200).json({ success: true });
+    } else {
+      return res
+        .status(401)
+        .json({ success: false, message: 'Incorrect password' });
+    }
+  } catch (error) {
+    console.error('Error validating password:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export { login, authenticateToken, register, logout, validatePassword };
