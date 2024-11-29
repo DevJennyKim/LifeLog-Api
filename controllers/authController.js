@@ -96,7 +96,7 @@ const login = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
-const logout = (req, res) => {
+const logout = (_req, res) => {
   res
     .clearCookie('access_token', {
       httpOnly: true,
