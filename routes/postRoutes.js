@@ -8,6 +8,7 @@ import {
   uploadImage,
   deletePost,
   addComment,
+  updatePost,
 } from '../controllers/postController.js';
 
 const router = express.Router();

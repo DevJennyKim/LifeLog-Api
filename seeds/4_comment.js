@@ -12,7 +12,6 @@ export async function seed(knex) {
       user_id: 2,
       post_id: 1,
       likes: 3,
-      quantity: 1,
       created_at: knex.fn.now(),
     },
     {
@@ -20,8 +19,34 @@ export async function seed(knex) {
       comment: 'Thank you for sharing!',
       user_id: 1,
       post_id: 2,
+      likes: 2,
+      created_at: knex.fn.now(),
+    },
+    {
+      id: 3,
+      comment: 'Amazing post!',
+      user_id: 1,
+      post_id: 3,
       likes: 4,
-      quantity: 1,
+
+      created_at: knex.fn.now(),
+    },
+    {
+      id: 4,
+      comment: 'Thank you for sharing!',
+      user_id: 1,
+      post_id: 4,
+      likes: 4,
+
+      created_at: knex.fn.now(),
+    },
+    {
+      id: 5,
+      comment: 'Amazing post!',
+      user_id: 2,
+      post_id: 5,
+      likes: 1,
+
       created_at: knex.fn.now(),
     },
   ]);

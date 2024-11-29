@@ -3,8 +3,13 @@ import configuration from '../knexfile.js';
 import jwt from 'jsonwebtoken';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
-import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import {
+  S3Client,
+  DeleteObjectCommand,
+  PutObjectCommand,
+} from '@aws-sdk/client-s3';
 import dotenv from 'dotenv';
+
 const knex = initKnex(configuration);
 
 const getPosts = async (req, res) => {
@@ -239,30 +244,32 @@ const uploadImage = (req, res) => {
 };
 
 const updatePost = async (postId, updateData) => {
-  const { title, content, categoryId, newImage, userId } = updateData;
-
+  const { title, content, categoryId, imageUrl, userId } = updateData;
   try {
     const post = await knex('post').where({ id: postId }).first();
     if (!post) {
       throw new Error('Post not found');
     }
+    console.log('post:', post);
 
-    let imageUrl = post.img;
+    console.log('update data:', updateData);
 
-    if (newImage) {
+    if (imageUrl) {
       const fileName = imageUrl
         ? imageUrl.split('/').pop()
         : `${Date.now()}-image`;
       const uploadParams = {
         Bucket: process.env.AWS_BUCKET_NAME,
         Key: fileName,
-        Body: Buffer.from(newImage, 'base64'),
+        Body: Buffer.from(imageUrl, 'base64'),
+        ContentEncoding: 'base64',
         ContentType: 'image/jpeg',
       };
 
       try {
-        const uploadResult = await s3.upload(uploadParams).promise();
-        imageUrl = uploadResult.Location;
+        const comment = new PutObjectCommand(uploadParams);
+        const response = await s3.send(comment);
+        console.log(response);
       } catch (error) {
         console.error('Error uploading new image:', error);
         throw new Error('Image upload failed');
