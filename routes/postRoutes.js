@@ -7,10 +7,10 @@ import {
   addPosts,
   uploadImage,
   deletePost,
-  addComment,
   updatePost,
   deleteComment,
   updateComment,
+  addComment,
 } from '../controllers/postController.js';
 
 const router = express.Router();
