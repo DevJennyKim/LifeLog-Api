@@ -1,18 +1,12 @@
 import initKnex from 'knex';
 import configuration from '../knexfile.js';
-import jwt from 'jsonwebtoken';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
-import {
-  S3Client,
-  DeleteObjectCommand,
-  PutObjectCommand,
-} from '@aws-sdk/client-s3';
-import dotenv from 'dotenv';
+import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
 
 const knex = initKnex(configuration);
 
-const getPosts = async (req, res) => {
+const getPosts = async (_req, res) => {
   try {
     const data = await knex('post')
       .join('user', 'post.user_id', 'user.id')
@@ -245,7 +239,7 @@ const upload = multer({
     metadata: (_req, file, cb) => {
       cb(null, { fieldName: file.fieldname });
     },
-    key: (req, file, cb) => {
+    key: (_req, file, cb) => {
       const uniqueFileName = `${Date.now().toString()}-${file.originalname}`;
       cb(null, uniqueFileName);
     },

@@ -8,7 +8,7 @@ const knex = initKnex(configuration);
 
 function authenticateToken(req, res, next) {
   const token = req.cookies.access_token;
-
+  console.log('Token received in authenticateToken:', token);
   if (!token) {
     return res.status(401).json({ message: 'No token provided' });
   }
@@ -80,7 +80,6 @@ const login = async (req, res) => {
       httpOnly: true,
       secure: false,
       sameSite: 'None',
-      maxAge: 2 * 60 * 60 * 1000,
     });
     return res.status(200).json({
       message: 'Logged in successfully',
@@ -132,6 +131,7 @@ const validatePassword = async (req, res) => {
 
 const updateUserInfo = async (req, res) => {
   const { userId, username, password } = req.body;
+
   if (!userId) {
     return res.status(400).json({ message: 'UserId is required' });
   }
@@ -168,6 +168,32 @@ const updateUserInfo = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 };
+const getUserInfo = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = req.user;
+
+    if (Number(userId) !== user.userId) {
+      return res.status(403).json({
+        message: "You do not have permission to view this user's information",
+      });
+    }
+    const userInfo = await knex('user').where({ id: userId }).first();
+
+    if (!userInfo) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    return res.status(200).json({
+      id: userInfo.id,
+      name: userInfo.name,
+      email: userInfo.email,
+    });
+  } catch (error) {
+    console.error('Error fetching user info:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 export {
   login,
@@ -176,4 +202,5 @@ export {
   logout,
   validatePassword,
   updateUserInfo,
+  getUserInfo,
 };

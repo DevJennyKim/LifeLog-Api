@@ -4,7 +4,7 @@ import configuration from '../knexfile.js';
 
 const knex = initKnex(configuration);
 
-const getCategory = async (req, res) => {
+const getCategory = async (_req, res) => {
   try {
     const data = await knex('category');
     res.json(data);
