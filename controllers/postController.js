@@ -157,7 +157,6 @@ const addComment = async (req, res) => {
 };
 const deleteComment = async (req, res) => {
   const { postId, commentId } = req.params;
-  console.log(postId, commentId);
   try {
     const deletedCount = await knex('comment')
       .where({ id: commentId, post_id: postId })
@@ -306,31 +305,6 @@ const updatePost = async (postId, updateData) => {
     }
 
     let newImageUrl = imageUrl || post.img;
-
-    // if (imageUrl && imageUrl !== post.img) {
-    //   const fileName = `${Date.now()}-${imageUrl.split('/').pop() || 'image'}`;
-    //   const uploadParams = {
-    //     Bucket: process.env.AWS_BUCKET_NAME,
-    //     Key: fileName,
-    //     Body: Buffer.from(imageUrl, 'base64'),
-    //     ContentEncoding: 'base64',
-    //     ContentType: 'image/jpeg',
-    //   };
-
-    //   try {
-    //     const uploadResponse = await s3.send(
-    //       new PutObjectCommand(uploadParams)
-    //     );
-    //     newImageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
-
-    //     if (post.img) {
-    //       await deleteImageFromS3(post.img);
-    //     }
-    //   } catch (error) {
-    //     console.error('Error uploading new image:', error);
-    //     throw new Error('Image upload failed');
-    //   }
-    // }
 
     await knex('post')
       .where({ id: postId })

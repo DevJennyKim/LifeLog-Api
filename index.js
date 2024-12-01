@@ -7,7 +7,6 @@ import categoryRoutes from './routes/categoryRoutes.js';
 import cookieParser from 'cookie-parser';
 import postRoutes from './routes/postRoutes.js';
 
-// import guestbookRoutes from './routes/guestbookRoutes.js';
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,13 +21,10 @@ app.use(
 );
 app.options('*', cors());
 app.use(cookieParser());
-
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
-app.use('/api/posts', postRoutes);
-
-// app.use('/api/guestbook', guestbookRoutes);
 app.use('/api/category', categoryRoutes);
+
 app.listen(PORT, () => {
   console.log(`running at http://localhost:${PORT}...`);
 });

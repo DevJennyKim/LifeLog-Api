@@ -23,7 +23,6 @@ function authenticateToken(req, res, next) {
 }
 
 const register = async (req, res) => {
-  console.log('Register endpoint hit', req.body);
   try {
     const { username, email, password } = req.body;
     const existingUser = await knex('user')
