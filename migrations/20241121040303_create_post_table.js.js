@@ -8,7 +8,7 @@ export function up(knex) {
       return knex.schema.createTable('post', (table) => {
         table.increments('id').primary();
         table.string('title').notNullable();
-        table.string('desc').notNullable();
+        table.text('desc').notNullable();
         table.string('img').notNullable();
         table
           .integer('user_id')
