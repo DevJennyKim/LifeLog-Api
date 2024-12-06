@@ -30,8 +30,8 @@ The LifeLog API is a backend service for a blogging platform. This document outl
 
 4. Run migrations:
    ```bash
-  npm run migrate
-  ```
+   npm run migrate
+   ```
 
 5. Add seed data (optional):
    ```bash
