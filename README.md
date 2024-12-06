@@ -52,7 +52,7 @@ Create a .env file in the root directory of the project and use the following ex
    AWS_SECRET_ACCESS_KEY=<YOUR_AWS_SECRET_ACCESS_KEY>
    AWS_REGION=<YOUR_AWS_REGION>
    AWS_BUCKET_NAME=<YOUR_AWS_BUCKET_NAME>
-
+```
 Refer to the provided .env.example file for additional details.
 
 ## Scripts
@@ -60,7 +60,7 @@ The following scripts are defined in package.json:
 - Start Server.
     ```bash
     npm start
-
+```
   - Starts the server from index.js and watches for file changes.
 
 
