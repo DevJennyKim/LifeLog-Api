@@ -68,4 +68,49 @@ The following scripts are defined in package.json:
    ```
     - Starts the server from index.js and watches for file changes.
 
+- Run Migrations:
+   ```bash
+      npm run migrate
+```
 
+- Rollback Migrations:
+```bash
+npm run migrate:rollback
+```
+   
+` Add Seed Data:
+```bash
+npm run seed```
+
+---
+
+## API Key Features
+1. User Authentication:
+- Sign up, log in, and JWT-based authentication.
+
+2. Post Management:
+- Create, read, update, and delete posts.
+
+3. Comment Management:
+- Add, view, and delete comments.
+
+4. Image Upload:
+- Store images using AWS S3.
+
+5. Like Functionality:
+- Allow users to like posts.
+
+---
+
+## Tech Stack
+
+- Backend Framework: Express.js
+- Database: MySQL, Knex.js
+- Authentication: JWT (jsonwebtoken)
+- File Upload: Multer, AWS S3
+- Environment Variable Management: dotenv
+- Password Encryption: bcrypt
+
+---
+
+Thank you :)
