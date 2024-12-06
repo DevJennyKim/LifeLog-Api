@@ -44,7 +44,8 @@ The LifeLog API is a backend service for a blogging platform. This document outl
    ```
 
 ## Environment Variables
-Create a .env file in the root directory of the project and use the following example as a guide:
+Create a `.env` file in the root directory of the project and use the following example as a guide:
+
    ```bash
    PORT=8081
    DB_HOST=127.0.0.1
@@ -58,27 +59,38 @@ Create a .env file in the root directory of the project and use the following ex
    AWS_REGION=<YOUR_AWS_REGION>
    AWS_BUCKET_NAME=<YOUR_AWS_BUCKET_NAME>
    ```
-Refer to the provided .env.example file for additional details.
+
+Refer to the provided `.env.example` file for more details.
+
+---
 
 ## Scripts
-The following scripts are defined in package.json:
-- Start Server.
+
+The following scripts are defined in `package.json`:
+
+- **Start the server**:
+
     ```bash
     npm start
     ```
-    - Starts the server from index.js and watches for file changes.
+    
+- Starts the server from index.js and watches for file changes.
 
-- Run Migrations:
-    ```bash
+-  **Run Migrations**:
+  
+
+     ```bash
       npm run migrate
     ```
 
-- Rollback Migrations:
+- **Rollback migrations**:
+
     ```bash
    npm run migrate:rollback
     ```
    
-- Add Seed Data:
+- **Add seed data**:
+  
     ```bash
     npm run seed 
     ```
@@ -86,13 +98,14 @@ The following scripts are defined in package.json:
 ---
 
 ## API Key Features
-1. User Authentication:
+
+1. User Authentication:   
 - Sign up, log in, and JWT-based authentication.
 
 2. Post Management:
 - Create, read, update, and delete posts.
 
-3. Comment Management:
+3. Comment Management:   
 - Add, view, and delete comments.
 
 4. Image Upload:
@@ -105,12 +118,12 @@ The following scripts are defined in package.json:
 
 ## Tech Stack
 
-- Backend Framework: Express.js
-- Database: MySQL, Knex.js
-- Authentication: JWT (jsonwebtoken)
-- File Upload: Multer, AWS S3
-- Environment Variable Management: dotenv
-- Password Encryption: bcrypt
+- **Backend Framework**: Express.js
+- **Database**: MySQL, Knex.js
+- **Authentication**: JWT (jsonwebtoken)
+- **File Upload**: Multer, AWS S3
+- **Environment Variable Management**: dotenv
+- **Password Encryption**: bcrypt
 
 ---
 
