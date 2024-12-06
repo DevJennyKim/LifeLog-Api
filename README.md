@@ -63,24 +63,24 @@ Refer to the provided .env.example file for additional details.
 ## Scripts
 The following scripts are defined in package.json:
 - Start Server.
-    ```bash
+    ``` bash
     npm start
    ```
     - Starts the server from index.js and watches for file changes.
 
 - Run Migrations:
-   ```bash
+   ``` bash
       npm run migrate
 ```
 
 - Rollback Migrations:
-```bash
+``` bash
 npm run migrate:rollback
 ```
    
 ` Add Seed Data:
-```bash
-npm run seed```
+``` bash
+npm run seed ```
 
 ---
 
