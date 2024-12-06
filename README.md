@@ -2,7 +2,9 @@
 
 The LifeLog API is a backend service for a blogging platform. This document outlines how to set up and run the project and provides an overview of its key features.
 
+
 ---
+
 
 ## Table of Contents
 1. [Project Setup](#project-setup)
@@ -11,7 +13,9 @@ The LifeLog API is a backend service for a blogging platform. This document outl
 4. [API Key Features](#api-key-features)
 5. [Tech Stack](#tech-stack)
 
+
 ---
+
 
 ## Project Setup
 
@@ -62,7 +66,9 @@ Create a `.env` file in the root directory of the project and use the following 
 
 Refer to the provided `.env.example` file for more details.
 
+
 ---
+
 
 ## Scripts
 
@@ -78,24 +84,25 @@ The following scripts are defined in `package.json`:
 
 -  **Run Migrations**:
   
-
      ```bash
-      npm run migrate
-    ```
+     npm run migrate
+     ```
 
 - **Rollback migrations**:
 
     ```bash
-   npm run migrate:rollback
+    npm run migrate:rollback
     ```
    
 - **Add seed data**:
   
-    ```bash
-    npm run seed 
-    ```
+     ```bash
+     npm run seed 
+     ```
+
 
 ---
+
 
 ## API Key Features
 
@@ -114,7 +121,9 @@ The following scripts are defined in `package.json`:
 5. Like Functionality:
    - Allow users to like posts.
 
+
 ---
+
 
 ## Tech Stack
 
@@ -124,6 +133,7 @@ The following scripts are defined in `package.json`:
 - **File Upload**: Multer, AWS S3
 - **Environment Variable Management**: dotenv
 - **Password Encryption**: bcrypt
+
 
 ---
 
