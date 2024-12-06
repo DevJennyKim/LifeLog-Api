@@ -19,24 +19,29 @@ The LifeLog API is a backend service for a blogging platform. This document outl
    ```bash
    git clone <REPOSITORY_URL>
    cd LifeLog-API
+   ```
    
 2. Install dependencies:
    ```bash
    npm install
+   ```
 
 3. Set up the database. Use MySQL and configure the database name, username, and password in the .env file.
 
 4. Run migrations:
    ```bash
   npm run migrate
+  ```
 
 5. Add seed data (optional):
    ```bash
    npm run seed
+   ```
 
 6. Start the server:
    ```bash
    npm start
+   ```
 
 ## Environment Variables
 Create a .env file in the root directory of the project and use the following example as a guide:
@@ -60,7 +65,7 @@ The following scripts are defined in package.json:
 - Start Server.
     ```bash
     npm start
-```
-  - Starts the server from index.js and watches for file changes.
+   ```
+    - Starts the server from index.js and watches for file changes.
 
 
