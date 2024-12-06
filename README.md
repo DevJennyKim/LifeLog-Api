@@ -21,7 +21,7 @@ The LifeLog API is a backend service for a blogging platform. This document outl
 
 1. Clone the repository:
    ```bash
-   git clone <REPOSITORY_URL>
+   git clone [<REPOSITORY_URL>](https://github.com/DevJennyKim/LifeLog-Api.git)
    cd LifeLog-API
    ```
    
