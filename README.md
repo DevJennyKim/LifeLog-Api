@@ -74,7 +74,7 @@ The following scripts are defined in `package.json`:
     npm start
     ```
     
-- Starts the server from index.js and watches for file changes.
+   - Starts the server from index.js and watches for file changes.
 
 -  **Run Migrations**:
   
@@ -100,19 +100,19 @@ The following scripts are defined in `package.json`:
 ## API Key Features
 
 1. User Authentication:   
-- Sign up, log in, and JWT-based authentication.
+   - Sign up, log in, and JWT-based authentication.
 
 2. Post Management:
-- Create, read, update, and delete posts.
+   - Create, read, update, and delete posts.
 
 3. Comment Management:   
-- Add, view, and delete comments.
+   - Add, view, and delete comments.
 
 4. Image Upload:
-- Store images using AWS S3.
+   - Store images using AWS S3.
 
 5. Like Functionality:
-- Allow users to like posts.
+   - Allow users to like posts.
 
 ---
 
